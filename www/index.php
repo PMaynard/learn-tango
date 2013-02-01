@@ -1,3 +1,6 @@
+<?php require 'openid.php'; ?>
+
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -8,25 +11,18 @@
     <meta name="author" content="">
 
     <!-- Le styles -->
-    <link href="../assets/css/bootstrap.css" rel="stylesheet">
+    <link href="assets/css/bootstrap.css" rel="stylesheet">
+    <link href="assets/css/openid.css" rel="stylesheet">
     <style>
       body {
         padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
       }
     </style>
-    <link href="../assets/css/bootstrap-responsive.css" rel="stylesheet">
 
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
       <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
-
-    <!-- Fav and touch icons -->
-    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="../assets/ico/apple-touch-icon-144-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="../assets/ico/apple-touch-icon-114-precomposed.png">
-      <link rel="apple-touch-icon-precomposed" sizes="72x72" href="../assets/ico/apple-touch-icon-72-precomposed.png">
-                    <link rel="apple-touch-icon-precomposed" href="../assets/ico/apple-touch-icon-57-precomposed.png">
-                                   <link rel="shortcut icon" href="../assets/ico/favicon.png">
   </head>
 
   <body>
@@ -38,7 +34,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </a>
-          <a class="brand" href="#">Learn Tango</a>
+          <a class="brand" href="http://port22.co.uk/t/tango/www">Learn Tango</a>
           <div class="nav-collapse collapse">
             <ul class="nav">
               <li class="active"><a href="#">Home</a></li>
@@ -53,26 +49,40 @@
     <div class="container">
 
       <h1>Learn Something New! <blink>Now!</blink></h1>
+<?php 
+try {
+    # Change 'localhost' to your domain name.
+    $openid = new LightOpenID('port22.co.uk');
+    if(!$openid->mode) {
+        if(isset($_GET['login'])) {
+            $openid->identity = 'https://www.google.com/accounts/o8/id';
+            $openid->required = array('contact/email');
+            $openid->optional = array('namePerson', 'namePerson/friendly');
+            header('Location: ' . $openid->authUrl());
+        }
+?>
+      <form action="?login" method="post">
+        <button>Login with Google</button> <a href="http://openidexplained.com" target="_BLANK">What is Open ID?</a>
+      </form>
+
+      <?php
+    } elseif($openid->mode == 'cancel') {
+        echo 'User has canceled authentication!';
+    } else {
+        echo 'User ' . ($openid->validate() ? $openid->identity . ' has ' : 'has not ') . 'logged in.';
+        print_r($openid->getAttributes());
+    }
+} catch(ErrorException $e) {
+    echo $e->getMessage();
+} ?>
       
 
     </div> <!-- /container -->
+    <script src="assets/js/bootstrap.js"></script>
+    <script src="assets/js/bootstrap.min.js"></script>
 
-    <!-- Le javascript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="../assets/js/jquery.js"></script>
-    <script src="../assets/js/bootstrap-transition.js"></script>
-    <script src="../assets/js/bootstrap-alert.js"></script>
-    <script src="../assets/js/bootstrap-modal.js"></script>
-    <script src="../assets/js/bootstrap-dropdown.js"></script>
-    <script src="../assets/js/bootstrap-scrollspy.js"></script>
-    <script src="../assets/js/bootstrap-tab.js"></script>
-    <script src="../assets/js/bootstrap-tooltip.js"></script>
-    <script src="../assets/js/bootstrap-popover.js"></script>
-    <script src="../assets/js/bootstrap-button.js"></script>
-    <script src="../assets/js/bootstrap-collapse.js"></script>
-    <script src="../assets/js/bootstrap-carousel.js"></script>
-    <script src="../assets/js/bootstrap-typeahead.js"></script>
-
+    <script src="assets/js/openid-jquery.js"></script>
+    <script src="assets/js/openid-en.js"></script>
   </body>
 </html>
+
