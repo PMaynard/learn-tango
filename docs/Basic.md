@@ -35,3 +35,13 @@ Primary objectives must be completed before the android application begins devel
 
 ## Secondary Objectives
 + Customizable dates e.g. how long a tango lasts before test.
+
+Hyperlinks
+----------
+Used to revoke Open ID from the Google provider.
+- https://accounts.google.com/IssuedAuthSubTokens 
+Open ID PHP Library
+- http://code.google.com/p/lightopenid
+Open ID Selector written in javascript
+- http://code.google.com/p/openid-selector
+
