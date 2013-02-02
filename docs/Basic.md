@@ -4,7 +4,7 @@ Overview
 A web site which displays a tango* to the user for one day, after seven days the user will be presented with a test to see if they can remember the tango. 
 If they get it correct then it will be marked as complete.
 
-There will be an Android application as well as a web interface. Both the android app and the web interface will use OpenID to authenticate the user.  
+There will be an Android application as well as a web interface. Both the android app and the web interface will use OpenID to authenticate the user.  For the android app, as well as third party software it will support OAuth to access the tangos.
 
 Web Interface
 =============
@@ -17,6 +17,10 @@ Database
 ========
 
 Write database plan \'ere.
+- Use Mongo DB 
+- Contain a list of users email
+- Contain all the tangos plus a viable question.
+- Ability to mark tango complete for each user
 
 Objectives
 ==========
