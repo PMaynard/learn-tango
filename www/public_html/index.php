@@ -1,4 +1,4 @@
-<?php require_once 'assets/lib/php/openid.php'; ?>
+<?php require_once 'openid.php'; ?>
 
 <!DOCTYPE html>
 <html lang="en">
