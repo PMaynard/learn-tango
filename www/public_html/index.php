@@ -33,7 +33,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </a>
-          <a class="brand" href="http://port22.co.uk/t/tango/www">Learn Tango</a>
+          <a class="brand" href="http://port22.co.uk/t/tango/www/public_html">Learn Tango</a>
           <div class="nav-collapse collapse">
             <ul class="nav">
               <li class="active"><a href="#">Home</a></li>
